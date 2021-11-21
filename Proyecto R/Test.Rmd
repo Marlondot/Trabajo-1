@@ -1,0 +1,26 @@
+---
+title: "Test"
+output: pdf_document
+author: "Equipo 34"
+---
+
+
+```{r, fig.cap="Hmm" ,include=T}
+source("funciones.R")
+base <- read.table("Equipo34.txt", header = T)
+pairs(base, lower.panel = myPanel.cor, upper.panel = panel.smooth, diag.panel = myPanel.box, labels = names(base))
+```
+
+Se puede notar una correlación lienal suficiente entre la respuesta y las covariables X1 y X2, además de una fuerte dependencia lineal entre las variables X3 y X4, X3 y X5, y X4 y X5.
+
+Es de nuestro interés ajustar el siguiente modelo de regresión lineal múltiple:
+
+$$ y_i = \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} +  \beta_3x_{3i} + \beta_4x_{4i} + \beta_5x_{5i} + \varepsilon_i, \ \varepsilon_i \stackrel{iid}{\sim} N(0, \sigma^2);  \ 1 \leq i \leq 72$$
+
+```{r}
+modelo <- lm(Y ~ ., base)
+```
+
+Se puede notar que me quiero puto disparar
+
+
