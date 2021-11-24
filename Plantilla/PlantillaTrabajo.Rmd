@@ -136,6 +136,168 @@ Tal $R^2$ nos dice que un $44.92\%$ de la variabilidad total en el Riesgo de inf
 
 \section{Ejercicio 2}
 
+De la tabla resumen de coeficientes que se mostró anteriormente, obtenemos que las 3 variables con el mayor valor p (y mayor a 0.05) son $\beta_3,\beta_4$ y $\beta_5$, que equivalen a el número de camas, censo promedio diario y número de enfermeras respectivamente.
+
+
+Para probar la significancia simultánea de las anteriores variables se usará el siguiente juego de hipotesis:
+
+$$
+\begin{cases}
+\begin{aligned}
+H_0 &:  \beta_3 = \beta_4 =\beta_5 = 0 \\
+H_1 &: Algún\ \beta_j \not = 0, \ j = 3,4,5,  
+\end{aligned}
+\end{cases}
+$$
+
+De la tabla de todas las regresiones posibles se extraen los siguientes modelos de interés:
+
+
+```{r echo=FALSE}
+posibles_regresiones = myAllRegTable(modelo)
+
+tabla_anova = myAnova(modelo)
+tabla.coef <- myAnova(modelo)
+
+# SSredu =  67.452
+# SSFull =  64.142
+# r = 3
+# n = 72
+# p = 6
+# MSH = (SSredu - SSFull)/r
+# MSE = SSFull/(n-p)
+# (F0 = MSH/MSE)
+
+interes <- posibles_regresiones[c(6,31),]
+row.names(interes) = c("Reducido","Completo")
+x = c("Numero de variables", "$R^2$", "$R^2$ ajustado","SSE", "CP", "Variables del modelo")
+interes %>%
+   kable( row.names = T,escape = F,
+          col.names = x, booktab = T) %>%
+   kable_styling(latex_options = "HOLD_position")
+
+  
+```
+Para medir la importancia de $\beta_3,\beta_4$ y $\beta_5$, se usará la suma de cuadrados extra, de la anterior tabla, con el fin de obtener el siguiente estadístico de prueba para la prueba de hipótesis:
+
+$$F_{0} = \frac{MSextra}{MSE(\beta_0 , \beta_1 ,\beta_2,\beta_3 , \beta_4 ,\beta_5)} = \frac{MSR(\beta_3 , \beta_4 ,\beta_5|\beta_0 , \beta_1 ,\beta_2 )}{MSE(\beta_0 , \beta_1 ,\beta_2,\beta_3 , \beta_4 ,\beta_5)} = \frac{SSR(\beta_3 , \beta_4 ,\beta_5|\beta_0 , \beta_1 ,\beta_2)/ 3 }{MSE(\beta_0 , \beta_1 ,\beta_2,\beta_3 , \beta_4 ,\beta_5)}$$
+$$ = \frac{[SSE(\beta_0 , \beta_1 ,\beta_2) - SSE(\beta_0 , \beta_1 ,\beta_2,\beta_3 , \beta_4 ,\beta_5)]/3}{MSE(\beta_0 , \beta_1 ,\beta_2,\beta_3 , \beta_4 ,\beta_5)}= \frac{[SSE(Reducido) - SSE(Completo)]/3}{MSE(Completo)}$$
+
+$$= \frac{[67.452 - 64.142]/3}{0.971853}= 1.1353 $$
+ 
+El criterio de rechazo de la hipótesis nula es $F_{0} >f_{0.05,3,66}$. Como $F_{0} = 1.1353$ y $f_{0.05,3,66} = 2.7437$ luego $F_{0} \ngtr f_{0.05,3,66}$. Esto quiere decir que no se puede rechazar la hipótesis nula, es decir, la prueba concluye que es posible descartar el número de camas, el censo promedio diario y el número de enfermeras.
+ 
+
 \section{Ejercicio 3}
 
 \section{Ejercicio 4}
+
+\subsection{Validación de los supuestos}
+
+```{r}
+# gráfica y prueba de normalidad de Shapiro-Wilk
+myQQnorm(modelo)
+```
+
+Como podemos ver, el gráfico de normalidad se comporta de una buena manera ya que los puntos están bastante cercanos a la recta de normalidad. Además si nos fijamos en la prueba de hipótesis que sería:
+
+$$H_0: r \sim  N(\mu,\sigma^2)$$ 
+$$ H_1:r \neq  N(\mu,\sigma^2)$$
+
+Podemos notar que el p-value es 0.8976 por lo cual si tomamos un $\alpha=0.05$ es claro que  $0.8976>\alpha$ por lo cual no negamos la hipótesis nula y concluimos que los residuales se distribuyen de manera normal.
+
+\subsection{Gráfico de los residuales estudentizados vs valores ajustados}
+
+```{r}
+# CÃ¡lculo de residuales estudentizados y valores ajustados
+res.stud <- round(rstandard(modelo), 4)
+yhat <- round(modelo$fitted.values, 4)
+
+# GrÃ¡fica de Residuales estudentizados vs. Valores ajustados
+plot(yhat, res.stud, xlab = "Valores Ajustados", 
+     ylab = "Residuales Estudentizados")
+abline(h = 0, lty = 2, lwd = 2, col = 2)
+abline(h = -3, lty = 2, lwd = 2, col = 2)
+abline(h = 3, lty = 2, lwd = 2, col = 2)
+```
+
+Podemos ver que la varianza de los errores se ve constante dado que no se ve ninguna forma en particular, además se ve que ningún punto sobre pasa el límite $|r_i|>3$ por lo cual no hay datos atípicos.
+
+\subsection{Puntos de balanceo}
+
+Para hallar los puntos de balanceo realizamos el cálculo:
+$$h_{ii}>\frac{2*p}{n}=\frac{2*6}{72}=\frac{1}{6}$$
+
+Ahora lo comparamos con los hat values y los siguientes son los puntos mayores al hii:
+```{r,include=FALSE}
+
+# CÃ¡lculo de errores estÃ¡ndar de los valores ajustados
+se.yhat <- round(predict(modelo, se.fit = T)$se.fit, 4)
+# Residuales crudos del modelo
+residuals <- round(modelo$residuals, 4)
+# Distancias de Cook
+Cooks.D <- round(cooks.distance(modelo), 4)
+# Valores de la diagonal de la matriz H
+hii.value <- round(hatvalues(modelo), 4)
+# Dffits
+Dffits <- round(dffits(modelo), 4)
+# Tabla de diagnÃ³sticos
+data.frame(base, yhat, se.yhat, residuals, res.stud, Cooks.D, hii.value, Dffits)
+```
+
+```{r,echo=FALSE}
+c(head(hii.value),tail(hii.value))%>% 
+kable(booktabs = TRUE,format = "latex", caption="\\label{box-cox}Primeros y ultimos valores hat values",format.args = list( decimal.mark = ".")) %>%
+  kable_styling(latex_options = c("striped", "condensed","HOLD_position"),
+  position = "center", font_size=10,full_width = FALSE)
+```
+
+Este sería un resumen de la tabla completa la cual reducimos para no ver una tabla tan enorme y solo sacamos los valores que nos interesan:
+
+
+```{r,echo=FALSE}
+
+
+
+Puntos_Balanceo=(hii.value[c(3,13,28,31,34,41,46,49,53,63,70)])
+
+Puntos_Balanceo%>% 
+kable(booktabs = TRUE,format = "latex", caption="\\label{box-cox}Hat-values > 0.166",format.args = list( decimal.mark = ".")) %>%
+  kable_styling(latex_options = c("striped", "condensed","HOLD_position"),
+  position = "center", font_size=10,full_width = FALSE)
+  
+```
+
+Como podemos ver tenemos 11 datos de balanceo los cuales son los datos: 3,13,28,31,34,41,46,49,53,63,70 los cuales son mayores a $\frac{1}{6}$
+
+\subsection{Puntos influenciales}
+
+Para los puntos influenciables nos ayudaremos del diagnóstico DFFITS el cual nos dice que una observación será influenciable si $|DFFITS_i|>2*\sqrt{\frac{p}{n}}$ con el cual si reemplazamos $|DFFITS_i|>2*\sqrt{\frac{6}{72}}=0.577$.
+
+Nuestra tabla de DFFITS es algo como:
+
+```{r,echo=FALSE}
+c(head(Dffits),tail(Dffits))%>% 
+kable(booktabs = TRUE,format = "latex", caption="\\label{box-cox}Primeros y ultimos valores DFFITS",format.args = list( decimal.mark = ".")) %>%
+  kable_styling(latex_options = c("striped", "condensed","HOLD_position"),
+  position = "center", font_size=10,full_width = FALSE)
+```
+
+De la tabla completa sacamos los valores los cuales nos cumplan la condición que estamos buscando con la cual nos queda la siguiente tabla:
+
+
+```{r,echo=FALSE}
+Puntos_Influenciales=(Dffits[c(28,46,53,63)])
+
+Puntos_Influenciales%>% 
+kable(booktabs = TRUE,format = "latex", caption="\\label{box-cox}|DFFITS| > 0.577",format.args = list( decimal.mark = ".")) %>%
+  kable_styling(latex_options = c("striped", "condensed","HOLD_position"),
+  position = "center", font_size=10,full_width = FALSE)
+
+```
+
+Como podemos ver solo tenemos 4 datos influenciales, los cuales son el 28,46,53,63.
+
+\subsection{Conclusión}
+
+Como conclusión podemos decir que el modelo no es del todo acertado dado que los datos 28,46,53,63 son datos influenciales y a la vez son datos de balanceo. Lo cual hace que esos datos halen el modelo en esta dirección y son observaciones que tienen valores inusuales por lo cual se recomendaría quitar dichas observaciones.

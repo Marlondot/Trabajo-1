@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.23)  23 NOV 2021 20:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.23)  24 NOV 2021 18:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -451,6 +451,15 @@ File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
 ) (./PlantillaTrabajo.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
+
+LaTeX Warning: Label `box-cox' multiply defined.
+
+
+LaTeX Warning: Label `box-cox' multiply defined.
+
+
+LaTeX Warning: Label `box-cox' multiply defined.
+
 )
 \openout1 = `PlantillaTrabajo.aux'.
 
@@ -532,7 +541,7 @@ LaTeX Info: Redefining \nameref on input line 88.
 LaTeX Info: Redefining \. on input line 88.
 LaTeX Info: Redefining \% on input line 88.
 (./titlepage.tex
-<logounal.png, id=40, 513.92pt x 281.05pt>
+<logounal.png, id=60, 513.92pt x 281.05pt>
 File: logounal.png Graphic file (type png)
 <use logounal.png>
 Package pdftex.def Info: logounal.png  used on input line 44.
@@ -594,7 +603,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.96 \newpage
               [1]
-<PlantillaTrabajo_files/figure-latex/unnamed-chunk-1-1.pdf, id=72, 469.755pt x 325.215pt>
+<PlantillaTrabajo_files/figure-latex/unnamed-chunk-1-1.pdf, id=105, 469.755pt x 325.215pt>
 File: PlantillaTrabajo_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use PlantillaTrabajo_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: PlantillaTrabajo_files/figure-latex/unnamed-chunk-1-1.pdf  used on input line 115.
@@ -610,27 +619,88 @@ l.210
       ] [5pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.245 \end{document}
-                    ] [6] (./PlantillaTrabajo.aux
+l.248 
+      ]
+
+LaTeX Warning: Command \' invalid in math mode on input line 253.
+
+
+Overfull \hbox (23.48187pt too wide) in paragraph at lines 263--271
+ [][] 
+ []
+
+
+Overfull \hbox (3.0957pt too wide) detected at line 277
+\OML/lmm/m/it/12 F[] \OT1/lmr/m/n/12 = [] = [] = []
+ []
+
+
+Overfull \hbox (4.49918pt too wide) detected at line 278
+\OT1/lmr/m/n/12 = [] = []
+ []
+
+<PlantillaTrabajo_files/figure-latex/unnamed-chunk-6-1.pdf, id=130, 469.755pt x 325.215pt>
+File: PlantillaTrabajo_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pdf)
+<use PlantillaTrabajo_files/figure-latex/unnamed-chunk-6-1.pdf>
+Package pdftex.def Info: PlantillaTrabajo_files/figure-latex/unnamed-chunk-6-1.pdf  used on input line 295.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[6]
+<PlantillaTrabajo_files/figure-latex/unnamed-chunk-7-1.pdf, id=136, 469.755pt x 325.215pt>
+File: PlantillaTrabajo_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
+<use PlantillaTrabajo_files/figure-latex/unnamed-chunk-7-1.pdf>
+Package pdftex.def Info: PlantillaTrabajo_files/figure-latex/unnamed-chunk-7-1.pdf  used on input line 310.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+[7 <./PlantillaTrabajo_files/figure-latex/unnamed-chunk-6-1.pdf>]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 329.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 329.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 329.
+[8 <./PlantillaTrabajo_files/figure-latex/unnamed-chunk-7-1.pdf>]
+Underfull \hbox (badness 1152) in paragraph at lines 380--382
+[]\T1/lmr/m/n/12 Como pode-mos ver ten-emos 11 datos de bal-anceo los cuales son los datos:
+ []
+
+[9pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.418 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.418 
+      ] [10pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.450 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.450 \end{document}
+                    ] (./PlantillaTrabajo.aux
 LaTeX Info: Redefining \. on input line 25.
 LaTeX Info: Redefining \% on input line 25.
 )
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `PlantillaTrabajo.out' has not changed.
-(rerunfilecheck)             Checksum: 0EC6411E1C2269B1CC408F9E95198C3D;1468.
+(rerunfilecheck)             Checksum: 265FC1986181B7942D4312E25B4A7D7E;2486.
  ) 
 Here is how much of TeX's memory you used:
- 13494 strings out of 480331
- 214923 string characters out of 5896206
- 526320 words of memory out of 5000000
- 31080 multiletter control sequences out of 15000+600000
- 443111 words of font info for 54 fonts, out of 8000000 for 9000
+ 13575 strings out of 480331
+ 216758 string characters out of 5896206
+ 526597 words of memory out of 5000000
+ 31135 multiletter control sequences out of 15000+600000
+ 458132 words of font info for 70 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 60i,16n,63p,446b,394s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}<c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb>
-Output written on PlantillaTrabajo.pdf (6 pages, 268796 bytes).
+ 60i,16n,63p,446b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}<c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi6.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr12.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/marlo/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on PlantillaTrabajo.pdf (10 pages, 329582 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
- 83 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 231 PDF objects out of 1000 (max. 8388607)
+ 186 compressed objects within 2 object streams
+ 34 named destinations out of 1000 (max. 500000)
+ 133 words of extra memory for PDF output out of 10000 (max. 10000000)
 
