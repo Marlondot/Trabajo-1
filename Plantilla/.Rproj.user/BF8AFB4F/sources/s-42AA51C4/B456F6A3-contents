@@ -1,0 +1,51 @@
+\begin{titlepage}
+   \Large{
+   \begin{center}
+       \vspace*{1cm}
+
+       \textbf{Trabajo regresión lineal múltiple}
+
+            
+       \vspace{1cm}
+       
+       Estudiantes
+       
+       \vspace{0.5cm}
+        
+        
+       \textbf{Integrante 1} \\
+       \textbf{Integrante 2} \\
+       \textbf{Integrante 3} \\
+       \textbf{Integrante 4} \\
+       
+              \vspace{1cm}
+       
+       Docente
+       
+       \vspace{0.5cm}
+
+       \textbf{Nombre de su docente}
+       
+       \vspace{0.4cm}
+
+       \vspace{1.5cm}
+       
+       Asignatura
+       
+       \vspace{0.5cm}
+
+       \textbf{Estadística II}
+
+       \vfill
+
+            
+       \vspace{0.1cm}
+     
+       \includegraphics[width=0.4\textwidth]{logounal.png}
+            
+       Sede Medellín\\
+       Noviembre de 2021
+       
+   \end{center}
+   }
+\end{titlepage}

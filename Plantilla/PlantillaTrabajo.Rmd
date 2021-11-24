@@ -1,0 +1,141 @@
+---
+header-includes:
+- \usepackage{longtable}
+- \usepackage[utf8]{inputenc}
+- \usepackage[spanish]{babel}\decimalpoint
+- \setlength{\parindent}{1.25cm}
+- \usepackage{amsmath}
+output:
+  pdf_document:
+    number_sections: true
+fontsize: 12pt
+papersize: letter
+geometry: margin = 1in
+language: "es"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, fig.pos = "H", fig.align = "center")
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(leaps)
+source("funciones.R")
+```
+
+\input{titlepage}
+\thispagestyle{empty}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
+\pagestyle{myheadings}
+\setcounter{page}{3}
+
+\section{Ejercicio 1}
+
+\subsection{Análisis de las variables}
+
+Es de nuestro interés ajustar un modelo de regresión lineal múltiple acorde a las 72 observaciones de la base de datos, cuyas filas están compuestas por las variables: $y$: Riesgo de infección, $x_1$: Duración de la estadía, $x_2$: Rutina de cultivos, $x_3$: Número de camas, $x_4$: Censo promedio diario y $x_5$: Número de enfermeras.
+Para ello comenzaremos con un análisis a la matriz de correlaciones entre ellas: 
+
+
+```{r,fig.cap="Matriz de correlaciones"}
+base <- read.table("Equipo34.txt", header = T)
+pairs(base, lower.panel = myPanel.cor, upper.panel = panel.smooth, diag.panel = myPanel.box, labels = names(base))
+```
+
+Se puede notar una alta dependencia lineal entre $X_3$ y $X_4$, $X_3$ y $X_5$, y, $X_4$ y $X_5$. Además, notar que las correlaciones entre la variable respuesta $Y$ y las variables $X_1$ $X_2$ son las más altas en relación a la primera, con respectivos valores de $0.55$ y $0.49$, suponiendo una relación lineal débil entre las dos variables en los dos casos.
+
+\subsection{Ajuste del modelo}
+
+Ahora, con las observaciones de la base de datos, procederemos a hacer el ajuste del siguiente modelo de regresión lineal múltiple:
+
+$$ y_i = \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} +  \beta_3x_{3i} + \beta_4x_{4i} + \beta_5x_{5i} + \varepsilon_i, \ \varepsilon_i \stackrel{iid}{\sim} N(0, \sigma^2);  \ 1 \leq i \leq 72$$
+
+
+```{r,include=FALSE}
+modelo <- lm(Y ~ ., base)
+modelo$coefficients
+```
+Así, el ajuste, redondeando los coeficientes a cuatro cifras decimales, nos resultará en la ecuación:
+
+$$ \hat{y}_i = 0.9586 + 0.2682x_{1i} + 0.0409x_{2i} +  -0.0007x_{3i} + 0.0009x_{4i} + 0.001x_{5i} ;  \ 1 \leq i \leq 72$$
+
+\subsection{Análisis de varianza}
+
+Se desea verificar la significancia de la regresión usando la tabla ANOVA, mediante la cual compararemos el siguiente juego de hipotesis:
+
+$$
+\begin{cases}
+\begin{aligned}
+H_0&: \beta_1  = \cdots = \beta_5 = 0 \\
+H_1&: \text{Al menos un } \beta_j \neq 0
+\end{aligned}
+\end{cases}
+$$
+Para la cual obtendremos lo siguiente:
+
+```{r,fig.cap="Tabla ANOVA del modelo"}
+tabla.anova <- myAnova(modelo)
+row.names(tabla.anova) <- c("Regresión", "Error")
+tabla.anova %>%
+  kable(row.names = T, escape = F,
+        col.names = c("Suma de cuadrados", "gl", "Cuadrado Medio", "$F_0$" ,"Valor P"),
+        align = "c", caption = "Tabla ANOVA para el modelo", booktab = T, digits = 4) %>%
+  kable_styling(latex_options = "HOLD_position")
+```
+
+Donde $F_0 = \frac{MSR}{MSE} \sim F_{5,66} \text{ bajo } H_0$
+
+Podemos concluir así que con un nivel de significancia del 5% al menos uno de los coeficientes es significativo, esto del rechazo de $H_0$ por el Valor P.
+
+\subsection{Análisis de varianza}
+
+Ahora procederemos hacer un análisis marginal de cada uno de los coeficientes usando la siguiente prueba para $j = 1, \cdots, 5$: 
+
+$$
+\begin{cases}
+\begin{aligned}
+H_0&: \beta_j = 0 \\
+H_1&: \beta_j \neq 0
+\end{aligned}
+\end{cases}
+$$
+con $T_0 = \frac{\hat{\beta}_j}{se(\hat{\beta}_j)} \sim t_{66} \text{ bajo } H_0$
+
+Para lo que usaremos la siguiente tabla:
+
+```{r}
+tabla.coef <- summary(modelo)$coefficients 
+row.names(tabla.coef) <- c("$\\beta_0$", "$\\beta_1$", "$\\beta_2$", "$\\beta_3$", "$\\beta_4$","$\\beta_5$")
+tabla.coef %>%
+  kable(row.names = T, escape = F,
+        col.names = c("Estimación", "Error estándar", "$T_0$", "Valor P"),
+        align = "c", caption = "Resumen de los coeficientes", booktab = T, digits = 4) %>%
+  kable_styling(latex_options = "HOLD_position")
+```
+
+Se puede observar que con un nivel de significancia de $\alpha=0.05$, a nivel marginal las únicas variables que tienen un efecto significativo en la respuesta son $x_1$ y $x_2$ que representan la duración de la estadía y la rutina de cultivos respectivamente.
+
+Notar que: $\hat{\beta}_1=0.2682$ indica que por un aumento unitario en la duración de la estadía $x_1$, la media de la variable respuesta aumentará en $0.2682$ unidades; de la misma manera, $\hat{\beta}_2=0.0409$ indica que por cada aumento en una unidad en la rutina de cultivos, la media de la variable respuesta aumentará en $0.0409$ unidades; estos dos casos siempre y cuando las otras variables se mantengan constantes.
+
+\subsection{Cálculo y análisis del coeficiente de determinación múltiple}
+
+Tenemos que el coeficiente de determinación multiple, denotado por $R^2$ se define como:
+
+$$
+R^2=\frac{SSR}{SST}=1-\frac{SSE}{SST}
+$$
+con $SSR$: Suma de cuadrados de la regresión , $SSE$: Suma de cuadrados de los residuales, y $SST=SSR+SSE$. Así tenemos, con los datos calculados anterioremente en la tabla ANOVA, que:
+
+$$R^2=\frac{52.3209}{52.3209+64.1423}=0.4492483$$
+Tal $R^2$ nos dice que un $44.92\%$ de la variabilidad total en el Riesgo de infección (Variable respuesta) es explicado por el modelo RLM propuesto.
+
+\section{Ejercicio 2}
+
+\section{Ejercicio 3}
+
+\section{Ejercicio 4}
