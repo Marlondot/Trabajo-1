@@ -1,0 +1,4 @@
+"0","modred <- lm(Y ~ X3, data = COPY)
+"
+"2","Error in is.data.frame(data) : object 'COPY' not found
+"

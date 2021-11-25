@@ -1,9 +1,9 @@
 {
     "id": "BDC49E46",
-    "path": "C:/Users/marlo/Desktop/Plantilla/PlantillaTrabajo.Rmd",
+    "path": "~/GitHub/Trabajo-1/Plantilla/PlantillaTrabajo.Rmd",
     "project_path": "PlantillaTrabajo.Rmd",
     "type": "r_markdown",
-    "hash": "4122781056",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1637683218298.0,
@@ -14,7 +14,7 @@
         "Source": "Source",
         "cursorPosition": "187,342",
         "scrollLine": "184",
-        "last_setup_crc32": "33BDB330752c1de2"
+        "last_setup_crc32": ""
     },
     "folds": "",
     "lastKnownWriteTime": 1637797196,
